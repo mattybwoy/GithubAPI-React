@@ -9,7 +9,7 @@ class Github extends Component {
   componentDidMount() {
     const options = {
       "headers": {
-        "Authorization": "token 5e03cdd8add13e772f819e7b831eb775a3da9a7e",
+        "Authorization": "token ????",
         "Accept": "application/vnd.github.v3+json"
       }
     }

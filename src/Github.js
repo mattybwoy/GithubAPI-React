@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import './Cards.css';
 
 class Github extends Component {
   constructor(props) {
     super(props)
-    this.state = { userData: {} }
+    this.state = { userData: [] }
   }
 
   componentDidMount() {
     const options = {
       "headers": {
-        "Authorization": "token ????",
+        "Authorization": "token goes here",
         "Accept": "application/vnd.github.v3+json"
       }
     }
-    fetch("https://api.github.com/users/mattybwoy", options)
+    fetch("https://api.github.com/users/mattybwoy/repos", options)
       .then(response => response.json())
       .then(data => {
+        console.log(data) 
         this.setState({userData: data})
       })
   }
@@ -23,10 +29,18 @@ class Github extends Component {
   render() {
     return (
       <div className="githubs">
-        {this.state.userData.name}
-         {/* {this.state.items.map((item, index) => <p key={index}><a href={item["webUrl"]}>{item["webTitle"]}</a></p>)} */}
+        {this.state.userData.map((item, index) => {
+          return (
+        <Card key = {index} className="cards">
+          <CardContent>
+            <Typography>
+                <a href={item["html_url"]}>{item["name"]}</a>
+            </Typography>
+          </CardContent>
+        </Card>
+  )})}
       </div>
     )
   }
-}
+  }
 export default Github

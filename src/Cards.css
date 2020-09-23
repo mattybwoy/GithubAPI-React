@@ -1,0 +1,8 @@
+.cards {
+  text-align: center;
+  margin: 0.5em;
+}
+
+.cards:hover {
+  background-color: cadetblue;
+}

@@ -1,8 +1,10 @@
 .cards {
   text-align: center;
   margin: 0.5em;
+  background-color: red;
 }
 
 .cards:hover {
   background-color: cadetblue;
 }
+

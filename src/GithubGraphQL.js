@@ -4,7 +4,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import './Cards.css';
 
-class Github extends Component {
+class GithubGraphQL extends Component {
   constructor(props) {
     super(props)
     this.state = { userData: [] }
@@ -12,18 +12,18 @@ class Github extends Component {
 
   componentDidMount() {
     const options = {
+      method: "POST",
       "headers": {
-        "Authorization": "<TOKEN>",
-        "Accept": "application/vnd.github.v3+json"
-      }
-    }
-    fetch("https://api.github.com/users/mattybwoy/repos", options)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data) 
-        this.setState({userData: data})
+        "Authorization": "Bearer <TOKEN>",
+      },body: JSON.stringify({
+    query: "query { user(login:\"mattybwoy\") { pinnedItems(first: 6, types: [REPOSITORY, GIST]) { totalCount edges { node { ... on Repository { name } } } } } }"
       })
-  }
+
+    }
+    fetch("https://api.github.com/graphql", options)
+      .then(response => response.json())
+      .then(parsedResponse => console.log(parsedResponse))
+      }
   
   render() {
     return (
@@ -41,5 +41,5 @@ class Github extends Component {
       </div>
     )
   }
-  }
-export default Github
+}
+export default GithubGraphQL

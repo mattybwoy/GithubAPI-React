@@ -7,14 +7,15 @@ import './Cards.css';
 class GithubGraphQL extends Component {
   constructor(props) {
     super(props)
-    this.state = { userData: [] }
+    this.state = { pinnedItems: [], userData: [] }
   }
 
   componentDidMount() {
+    console.log(process.env)
     const options = {
       method: "POST",
       "headers": {
-        "Authorization": "Bearer <TOKEN>",
+        "Authorization": "Bearer " + process.env.REACT_APP_PINNED_TOKEN
       },body: JSON.stringify({
     query: "query { user(login:\"mattybwoy\") { pinnedItems(first: 6, types: [REPOSITORY, GIST]) { totalCount edges { node { ... on Repository { name } } } } } }"
       })
@@ -22,18 +23,19 @@ class GithubGraphQL extends Component {
     }
     fetch("https://api.github.com/graphql", options)
       .then(response => response.json())
-      .then(parsedResponse => console.log(parsedResponse))
+      .then(data => {console.log(data)
+         this.setState({pinnedItems: data.data.user.pinnedItems.edges})})
       }
   
   render() {
     return (
       <div className="githubs">
-        {this.state.userData.map((item, index) => {
+        {this.state.pinnedItems.map((item, index) => {
           return (
         <Card key = {index} className="cards">
           <CardContent>
             <Typography>
-                <a href={item["html_url"]}>{item["name"]}</a>
+                {item.node["name"]}
             </Typography>
           </CardContent>
         </Card>

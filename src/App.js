@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-// import Github from './Github'
+import Github from './Github'
 import GithubGraphQL from './GithubGraphQL'
 import Grid from '@material-ui/core/Grid';
 
@@ -15,7 +15,7 @@ function App() {
           </Grid>
           <Grid item xs={4}>
           </Grid>
-          <Grid item xs={4}><GithubGraphQL />
+          <Grid item xs={4}><GithubGraphQL/>
           </Grid>
           <Grid item xs={4}>
           </Grid>

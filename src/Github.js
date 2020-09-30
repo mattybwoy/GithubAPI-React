@@ -12,8 +12,9 @@ class Github extends Component {
 
   componentDidMount() {
     const options = {
+      
       "headers": {
-        "Authorization": "<TOKEN>",
+        "Authorization": process.env.REACT_APP_TOKEN,
         "Accept": "application/vnd.github.v3+json"
       }
     }
